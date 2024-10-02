@@ -1,0 +1,17 @@
+Glossary
+********
+
+
+
+Basin
+    This is the def of a Basin
+
+Hydrolocation
+    This is how we are using hydrolocation.
+
+NHDPlus
+    This is the def of NHDPlus
+
+NLDI
+    This is the def of NLDI -- and it's quite long, taking up multiple lines
+    on the page.

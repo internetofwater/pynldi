@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NLDI API &mdash; NLDI API Service (python)  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Plugins" href="Plugins.html" />
+    <link rel="prev" title="Overview" href="Overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NLDI API Service (python)
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NLDI API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#nldi.api.API"><code class="docutils literal notranslate"><span class="pre">API</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.API.db_info"><code class="docutils literal notranslate"><span class="pre">API.db_info</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.API.db_connection_string"><code class="docutils literal notranslate"><span class="pre">API.db_connection_string</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.API.db_engine"><code class="docutils literal notranslate"><span class="pre">API.db_engine</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.API.register_plugin"><code class="docutils literal notranslate"><span class="pre">API.register_plugin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.API.require_plugin"><code class="docutils literal notranslate"><span class="pre">API.require_plugin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.API.openapi_json"><code class="docutils literal notranslate"><span class="pre">API.openapi_json</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="About.html">About This Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NLDI API Service (python)</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">NLDI API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/API.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nldi-api">
+<h1>NLDI API<a class="headerlink" href="#nldi-api" title="Link to this heading"></a></h1>
+<p>The API class forms the nexus of access to the various plugins which implement the business
+logic of the NLDI services.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="nldi.api.API">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nldi.api.</span></span><span class="sig-name descname"><span class="pre">API</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">globalconfig</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.API" title="Link to this definition"></a></dt>
+<dd><p>The main API class for NLDI services.</p>
+<p>This class is the main entry point for the NLDI API. It is responsible for
+managing the various plugins which provide the API’s functionality.  It also
+shared resources used by those plugins, most notably the database connection.</p>
+<p>An API object is created with a configuration dictionary. This dictionary
+is loaded from a YAML file at runtime, and is structured/modeled on the config
+dictionary used in <code class="docutils literal notranslate"><span class="pre">pygeoapi</span></code> applications.  Important keys and sub-keys in
+the config dictionary are:</p>
+<ul class="simple">
+<li><p>server</p>
+<ul>
+<li><p>data</p>
+<ul>
+<li><p>dbname</p></li>
+<li><p>host</p></li>
+<li><p>password</p></li>
+<li><p>port</p></li>
+<li><p>user</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>metadata</p>
+<ul>
+<li><p>identification</p>
+<ul>
+<li><p>title</p></li>
+<li><p>description</p></li>
+<li><p>terms_of_service</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">server.data</span></code> dictionary contains the connection information for the
+API’s database.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">metadta.identification</span></code> dictionary contains information used to construct
+the OpenAPI document for the API.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.API.db_info">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">db_info</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#nldi.api.API.db_info" title="Link to this definition"></a></dt>
+<dd><p>Get database connection information from the global configuration.</p>
+<p>The returned dictionary is a copy of the dict found in <code class="docutils literal notranslate"><span class="pre">server.data</span></code> of
+the global configuration.  That is, it contains keys for <code class="docutils literal notranslate"><span class="pre">dbname</span></code>,
+<code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">password</span></code>, <code class="docutils literal notranslate"><span class="pre">port</span></code>, and <code class="docutils literal notranslate"><span class="pre">user</span></code>.</p>
+<p>This property is maintined mostly for backward compatibility – some utility functions
+want the database information in this form. The preferred way to access the database
+connection information is via the <code class="docutils literal notranslate"><span class="pre">db_connection_string</span></code> property.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Database connection information</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.API.db_connection_string">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">db_connection_string</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">URL</span></em><a class="headerlink" href="#nldi.api.API.db_connection_string" title="Link to this definition"></a></dt>
+<dd><p>Compose a database connection string from the configuration info dictionary.</p>
+<p>This property is a pre-formatted and validated connection string for the API’s database,
+as may be used to create a database engine in SQLAlchemy.  This implies that the
+API object may connect to exactly one database for the life of the object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Database connection string</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>sqlalchemy.engine.URL</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.API.db_engine">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">db_engine</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Engine</span></em><a class="headerlink" href="#nldi.api.API.db_engine" title="Link to this definition"></a></dt>
+<dd><p>Create a database engine for the API.</p>
+<p>The database engine is a SQLAlchemy data structure used to track details of the
+database connection. It is used later when it comes time to form individual
+sessions in which queries are executed. The <code class="docutils literal notranslate"><span class="pre">db_engine</span></code> is re-used by all
+registered plugins as a way of economizing on this datastructure (only one
+engine is needed, as everything connects to the same db server).</p>
+<p><strong>IMPORTANT</strong> this property is <em>cached</em>, so that new engines are not created
+whenever this property is referenced. Repeated access to this property of the
+<code class="docutils literal notranslate"><span class="pre">API</span></code> will return the same engine each time rather than creating a new engine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Database engine, suitable for use with a session maker.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>sqlalchemy.engine.Engine</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.API.register_plugin">
+<span class="sig-name descname"><span class="pre">register_plugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.API.register_plugin" title="Link to this definition"></a></dt>
+<dd><p>Register a plugin with the API.</p>
+<p>The plugins are how individual services are “attached” to this <code class="docutils literal notranslate"><span class="pre">API</span></code>. Registering a
+plugin enrolls it in an internal data structure. The registry of plugins is nothing
+more than a python dictionary. The key is the plugin’s class name (which can be over-ridden
+at the plugin level) and the value is the plugin object itself. Registration
+gives the plugins access to the API’s database connection information, its config
+information, etc.</p>
+<p>For this system to work, each registered plugin must have a <code class="docutils literal notranslate"><span class="pre">parent</span></code> attribute,
+which will point back to this API object, and it must implement the <code class="docutils literal notranslate"><span class="pre">db_is_alive</span></code>
+method.  See more information in the <code class="docutils literal notranslate"><span class="pre">APIPlugin</span></code> class description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>plugin</strong> (<a class="reference internal" href="Plugins.html#nldi.api.plugins.APIPlugin" title="nldi.api.plugins.APIPlugin"><em>plugins.APIPlugin</em></a>) – The plugin to register</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Success or Failure of registration</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.API.require_plugin">
+<span class="sig-name descname"><span class="pre">require_plugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.API.require_plugin" title="Link to this definition"></a></dt>
+<dd><p>Direct the API to load a plugin.</p>
+<p>This method is used to load a plugin that has not yet been registered with the API.  The
+plugin is loaded by name, and then registered with the API.  If the plugin is already
+registered, this method does nothing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>plugin_name</strong> (<em>str</em>) – The name of the plugin to load</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ImportError</strong> – If unable to load the required module</p></li>
+<li><p><strong>RuntimeError</strong> – If unable to register the plugin</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>indication of success</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.API.openapi_json">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">openapi_json</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#nldi.api.API.openapi_json" title="Link to this definition"></a></dt>
+<dd><p>Generate an OpenAPI document for the API.</p>
+<p>This method will generate an OpenAPI JSON document based on the information
+found in the global configuration supplied in the constructor. The structure
+of the OAS document and the included endpoints match the current NLDI spec.
+Those paths are largely hard-coded in this method rather than being dynamically
+generated by the currently-loaded plugins. This is because plugins only load
+when they are needed, yet we still need to generate the OpenAPI document for
+services that are not yet loaded.</p>
+<p>Note that the OpenAPI document is generated as a dictionary, not as a JSON string
+(despite the name of the method suggesting json output). The dictionary must be
+serialized to JSON as a part of the Flask framework (using <code class="docutils literal notranslate"><span class="pre">jsonify</span></code> or similar).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>OpenAPI document</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Plugins.html" class="btn btn-neutral float-right" title="Plugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Internet of Water.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plugins &mdash; NLDI API Service (python)  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Glossary" href="Glossary.html" />
+    <link rel="prev" title="NLDI API" href="API.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            NLDI API Service (python)
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">NLDI API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#nldi.api.plugins.APIPlugin"><code class="docutils literal notranslate"><span class="pre">APIPlugin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.APIPlugin.is_registered"><code class="docutils literal notranslate"><span class="pre">APIPlugin.is_registered</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.APIPlugin.get_by_id"><code class="docutils literal notranslate"><span class="pre">APIPlugin.get_by_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.APIPlugin.get_by_coords"><code class="docutils literal notranslate"><span class="pre">APIPlugin.get_by_coords()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.APIPlugin.base_url"><code class="docutils literal notranslate"><span class="pre">APIPlugin.base_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.APIPlugin.session"><code class="docutils literal notranslate"><span class="pre">APIPlugin.session()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.APIPlugin.query"><code class="docutils literal notranslate"><span class="pre">APIPlugin.query()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.APIPlugin.db_is_alive"><code class="docutils literal notranslate"><span class="pre">APIPlugin.db_is_alive()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nldi.api.plugins.CrawlerSourcePlugin"><code class="docutils literal notranslate"><span class="pre">CrawlerSourcePlugin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.CrawlerSourcePlugin.get_by_id"><code class="docutils literal notranslate"><span class="pre">CrawlerSourcePlugin.get_by_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.CrawlerSourcePlugin.get_all"><code class="docutils literal notranslate"><span class="pre">CrawlerSourcePlugin.get_all()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.CrawlerSourcePlugin.insert_source"><code class="docutils literal notranslate"><span class="pre">CrawlerSourcePlugin.insert_source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.CrawlerSourcePlugin.delete_source"><code class="docutils literal notranslate"><span class="pre">CrawlerSourcePlugin.delete_source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.CrawlerSourcePlugin.align_sources"><code class="docutils literal notranslate"><span class="pre">CrawlerSourcePlugin.align_sources()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nldi.api.plugins.FeaturePlugin"><code class="docutils literal notranslate"><span class="pre">FeaturePlugin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.FeaturePlugin.relative_url"><code class="docutils literal notranslate"><span class="pre">FeaturePlugin.relative_url()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.FeaturePlugin.crawler_source_lookup"><code class="docutils literal notranslate"><span class="pre">FeaturePlugin.crawler_source_lookup</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.FeaturePlugin.get_by_id"><code class="docutils literal notranslate"><span class="pre">FeaturePlugin.get_by_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.FeaturePlugin.get_all"><code class="docutils literal notranslate"><span class="pre">FeaturePlugin.get_all()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.FeaturePlugin.lookup_navigation"><code class="docutils literal notranslate"><span class="pre">FeaturePlugin.lookup_navigation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nldi.api.plugins.FlowlinePlugin"><code class="docutils literal notranslate"><span class="pre">FlowlinePlugin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.FlowlinePlugin.relative_url"><code class="docutils literal notranslate"><span class="pre">FlowlinePlugin.relative_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.FlowlinePlugin.get_by_id"><code class="docutils literal notranslate"><span class="pre">FlowlinePlugin.get_by_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.FlowlinePlugin.lookup_navigation"><code class="docutils literal notranslate"><span class="pre">FlowlinePlugin.lookup_navigation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.FlowlinePlugin.trim_navigation"><code class="docutils literal notranslate"><span class="pre">FlowlinePlugin.trim_navigation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nldi.api.plugins.CatchmentPlugin"><code class="docutils literal notranslate"><span class="pre">CatchmentPlugin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.CatchmentPlugin.relative_url"><code class="docutils literal notranslate"><span class="pre">CatchmentPlugin.relative_url</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.CatchmentPlugin.get_by_id"><code class="docutils literal notranslate"><span class="pre">CatchmentPlugin.get_by_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.CatchmentPlugin.get_by_coords"><code class="docutils literal notranslate"><span class="pre">CatchmentPlugin.get_by_coords()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nldi.api.plugins.BasinPlugin"><code class="docutils literal notranslate"><span class="pre">BasinPlugin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.BasinPlugin.SPLIT_CATCHMENT_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">BasinPlugin.SPLIT_CATCHMENT_THRESHOLD</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.BasinPlugin.crawler_source_lookup"><code class="docutils literal notranslate"><span class="pre">BasinPlugin.crawler_source_lookup</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.BasinPlugin.feature_lookup"><code class="docutils literal notranslate"><span class="pre">BasinPlugin.feature_lookup</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.BasinPlugin.flowline_lookup"><code class="docutils literal notranslate"><span class="pre">BasinPlugin.flowline_lookup</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.BasinPlugin.hydrolocation_lookup"><code class="docutils literal notranslate"><span class="pre">BasinPlugin.hydrolocation_lookup</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.BasinPlugin.splitcatchment_lookup"><code class="docutils literal notranslate"><span class="pre">BasinPlugin.splitcatchment_lookup</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.BasinPlugin.get_by_id"><code class="docutils literal notranslate"><span class="pre">BasinPlugin.get_by_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nldi.api.plugins.MainstemPlugin"><code class="docutils literal notranslate"><span class="pre">MainstemPlugin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.MainstemPlugin.get_by_id"><code class="docutils literal notranslate"><span class="pre">MainstemPlugin.get_by_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nldi.api.plugins.HydroLocationPlugin"><code class="docutils literal notranslate"><span class="pre">HydroLocationPlugin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.HydroLocationPlugin.catchment_lookup"><code class="docutils literal notranslate"><span class="pre">HydroLocationPlugin.catchment_lookup</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.HydroLocationPlugin.flowtrace_service_endpoint"><code class="docutils literal notranslate"><span class="pre">HydroLocationPlugin.flowtrace_service_endpoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.HydroLocationPlugin.get_by_coords"><code class="docutils literal notranslate"><span class="pre">HydroLocationPlugin.get_by_coords()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nldi.api.plugins.SplitCatchmentPlugin"><code class="docutils literal notranslate"><span class="pre">SplitCatchmentPlugin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.SplitCatchmentPlugin.splitcatchment_service_endpoint"><code class="docutils literal notranslate"><span class="pre">SplitCatchmentPlugin.splitcatchment_service_endpoint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.SplitCatchmentPlugin.get_by_coords"><code class="docutils literal notranslate"><span class="pre">SplitCatchmentPlugin.get_by_coords()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#nldi.api.plugins.PyGeoAPIPlugin"><code class="docutils literal notranslate"><span class="pre">PyGeoAPIPlugin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.PyGeoAPIPlugin.DEFAULT_PYGEOAPI_URL"><code class="docutils literal notranslate"><span class="pre">PyGeoAPIPlugin.DEFAULT_PYGEOAPI_URL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.PyGeoAPIPlugin.HTTP_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">PyGeoAPIPlugin.HTTP_TIMEOUT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.PyGeoAPIPlugin.DEFAULT_PROPS"><code class="docutils literal notranslate"><span class="pre">PyGeoAPIPlugin.DEFAULT_PROPS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nldi.api.plugins.PyGeoAPIPlugin.pygeoapi_url"><code class="docutils literal notranslate"><span class="pre">PyGeoAPIPlugin.pygeoapi_url</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="About.html">About This Project</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">NLDI API Service (python)</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Plugins</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Plugins.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="plugins">
+<h1>Plugins<a class="headerlink" href="#plugins" title="Link to this heading"></a></h1>
+<p>The API Plugins create implemenations of various services offered by the API. The idea
+here is that a service (typically some sort of lookup) would be implemented in the plugin,
+and the collection of all such plugins would form the collection of services available
+via the API.</p>
+<p>All plugins are subclassed from <code class="docutils literal notranslate"><span class="pre">APIPlugin</span></code>:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="nldi.api.plugins.APIPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nldi.api.plugins.</span></span><span class="sig-name descname"><span class="pre">APIPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.APIPlugin" title="Link to this definition"></a></dt>
+<dd><p>Base class for all API plugins.</p>
+<p>The various plugins that make up the NLDI API are all subclasses of this class.  It
+provides a common interface for all plugins, including methods for getting data from the
+database, and for checking the status of the database connection.  Any lookup or query
+operation that is common to all plugins should be implemented here.</p>
+<p>The APIPlugin class is intentionally <strong>NOT</strong> an abstract base class.  It is possible
+to create an instance of this class, but this would have no purpose for real-world use.
+This class can be instantiated for testing and development purposes, but in normal
+operation, it is intended to be subclassed.</p>
+<p>The initializer for this class takes a single optional argument, <code class="docutils literal notranslate"><span class="pre">name</span></code>, which
+is a string that is used to identify the plugin in the <code class="docutils literal notranslate"><span class="pre">API</span></code> plugin registry. If
+no name is provided, the name is taken to be the name of the class itself.</p>
+<p>Optionally, the initializer can take a keyword argument, <code class="docutils literal notranslate"><span class="pre">db_connect_url</span></code>, which is a
+connection URL for the database it should use to perform its queries.  This parameter
+is typicall not used, as the plugin design calls for it to use the parent’s (i.e. the
+<code class="docutils literal notranslate"><span class="pre">API</span></code> database connection).  Specifying a <code class="docutils literal notranslate"><span class="pre">db_connect_url</span></code> in the intializer is
+useful during testing and development, when the plugin may not be registered with
+the API.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.APIPlugin.is_registered">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_registered</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#nldi.api.plugins.APIPlugin.is_registered" title="Link to this definition"></a></dt>
+<dd><p>Test to see if the plugin is registered with an API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the plugin is registered, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.APIPlugin.get_by_id">
+<span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.APIPlugin.get_by_id" title="Link to this definition"></a></dt>
+<dd><p>Get a record from the database by its ID.</p>
+<p>This is a generic method for getting a record from the database by its ID.  In
+this base class, it is not implemented, but it is intended to be implemented in
+subclasses. Exactly what an “ID” is will depend on the plugin, as will the
+return type (Geojson, ORM object, etc.)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – A plugin-specific identifier for the record to find.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – This method is not implemented in the base class.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The record that matches the ID.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.APIPlugin.get_by_coords">
+<span class="sig-name descname"><span class="pre">get_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.APIPlugin.get_by_coords" title="Link to this definition"></a></dt>
+<dd><p>Get a record from the database by its coordinates.</p>
+<p>This is a generic method for getting a record from the database by its spatial
+location.  The coordinates are passed as a string in the form of a WKT point (e.g.
+<code class="docutils literal notranslate"><span class="pre">POINT(123.0</span> <span class="pre">45.0)</span></code>.</p>
+<p>For some plugins, the coordinates may be used to query a database table for a
+record that contains the point.  For other plugins, the idea of a spatial search
+may not make sense, and this method may not be implemented.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>coords</strong> (<em>str</em>) – A point to use for the search, in WKT format.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – This method is not implemented in the base class.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The record that intersect the point spatially.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.APIPlugin.base_url">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#nldi.api.plugins.APIPlugin.base_url" title="Link to this definition"></a></dt>
+<dd><p>Get the base URL for the plugin.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">base_url</span></code> is used to construct other URLs returned as properties of various
+plugins. The base URL is typically the root URL of the API, but it can be overridden
+by the plugin.  If the plugin is registered with the API, the base URL is taken from
+the API itself – that information is defined in the global config in the API
+constructor.</p>
+<p>If the plugin is not registered, the base URL is assumed to be
+“/”.  This is a fallback for testing and development purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The base URL for the plugin.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.APIPlugin.session">
+<span class="sig-name descname"><span class="pre">session</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.APIPlugin.session" title="Link to this definition"></a></dt>
+<dd><p>Make a sqlalchemy session for the plugin’s database engine.</p>
+<p>This is a convenience method to create a session object for the plugin’s
+database engine.  I’ve moved away from <code class="docutils literal notranslate"><span class="pre">sessionmaker</span></code> because I find it
+more flexible to create the session object directly. And a SQLalchemy
+<code class="docutils literal notranslate"><span class="pre">Session</span></code> is already a context manager, so we don’t have to worry about
+closing it – so long as it is used correctly by the caller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A session object</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>sqlalchemy.orm.session.Session</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.APIPlugin.query">
+<span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.APIPlugin.query" title="Link to this definition"></a></dt>
+<dd><p>Make a <code class="docutils literal notranslate"><span class="pre">sqlalchemy</span></code> query object for the plugin’s table model.</p>
+<p>This method is deprecated.</p>
+<p>This method is retained for backward compatibility.  It is a convenience method
+which creates a SQLAlchemy <code class="docutils literal notranslate"><span class="pre">Query</span></code> object with the table and geometry-as-geojson
+information pre-specified.</p>
+<p>We are moving away from this construct, insisting that the caller explicitly
+define what they want queries to return.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>session</strong> (<em>sqlalchemy.orm.session.Session</em>) – An open session object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A query object</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sqlalchemy.orm.query.Query</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.APIPlugin.db_is_alive">
+<span class="sig-name descname"><span class="pre">db_is_alive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.APIPlugin.db_is_alive" title="Link to this definition"></a></dt>
+<dd><p>Validate connection to the DB.</p>
+<p>This method is used to check the status of the database connection.  It is intended as
+a simple health check to see if the plugin will work. It is not a comprehensive test
+of database functionality, but it is a good first step to see if the plugin failed
+to initialize properly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>success/failure</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="nldi.api.plugins.CrawlerSourcePlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nldi.api.plugins.</span></span><span class="sig-name descname"><span class="pre">CrawlerSourcePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.CrawlerSourcePlugin" title="Link to this definition"></a></dt>
+<dd><p>API Plugin for managing the Crawler Source table.</p>
+<p>This plugin is required for much of the NLDI functionality, since it provides the
+information about the sources of the data that NLDI uses. It is not registered as
+a plugin in the API (although it could be), but is instead used directly by the API
+as its <code class="docutils literal notranslate"><span class="pre">.sources</span></code> attribute.  See the API class for more information.</p>
+<p>Crawler sources do not have a spatial component, so this plugin does not have the
+<code class="docutils literal notranslate"><span class="pre">get_by_coords()</span></code> method that is present in the other plugins.  It does have the
+<code class="docutils literal notranslate"><span class="pre">get_by_id()</span></code> method, which is used to retrieve a source by its <code class="docutils literal notranslate"><span class="pre">source_suffix</span></code>.
+It also includes a method to retrieve all sources in the table.</p>
+<p>Unlike other plugins, this plugin has a method to insert a source into the database (all
+other plugins are read-only). These update/write methods are not plumbed to endpoints
+in the API, so they are not exposed to the outside world.  They are used internally to
+manage the sources table.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.CrawlerSourcePlugin.get_by_id">
+<span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.CrawlerSourcePlugin.get_by_id" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a source from the database.</p>
+<p><strong>IMPORTANT!!!</strong>  Note that the identifier supplied as an argument to this method is
+the source’s <code class="docutils literal notranslate"><span class="pre">source_suffix</span></code>.  This is treated as a unique identifier by the
+business logic of the NLDI API, but there is actually <strong>NO</strong> unique constraint
+on this column in the database.  This column is NOT the primary key for the crawler
+source table.  The primary key is the <code class="docutils literal notranslate"><span class="pre">crawler_source_id</span></code> column, which is an
+integer value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.CrawlerSourcePlugin.get_all">
+<span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.CrawlerSourcePlugin.get_all" title="Link to this definition"></a></dt>
+<dd><p>List all items in the CrawlerSource table.</p>
+<p>Produces a list of dictionaries, each dictionary representing a row in the table.
+Note that we are choosing to return the data as a list of dictionaries, rather than
+as a generator.  The sources table is small, and this approach simplifies the code
+use a fair bit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of dictionaries, each representing a row in the CrawlerSource table.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[Dict[str, str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.CrawlerSourcePlugin.insert_source">
+<span class="sig-name descname"><span class="pre">insert_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.CrawlerSourcePlugin.insert_source" title="Link to this definition"></a></dt>
+<dd><p>Insert a source in the CrawlerSource table.</p>
+<p>This method will insert a new source into the database, or update an existing source
+if it happens to have the same <code class="docutils literal notranslate"><span class="pre">crawler_source_id</span></code> as an existing source.  This
+“upsert” using “ON CONFLICT” clause is specific to the postgres dialect of SQL.</p>
+<p><strong>NOTE:</strong> that this is a (hopefully) non-breaking change in behavior.  Previous factors of this
+function presumed that the to-be-inserted source did not already exist, and simply
+inserted a new row. In practice, this method is called by the <code class="docutils literal notranslate"><span class="pre">align_sources()</span></code> method,
+below, which deletes all sources before inserting new ones.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – A dictionary representing the source to insert.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the source was inserted, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.CrawlerSourcePlugin.delete_source">
+<span class="sig-name descname"><span class="pre">delete_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.CrawlerSourcePlugin.delete_source" title="Link to this definition"></a></dt>
+<dd><p>Delete a named source from the database.</p>
+<p>Note that the source_id is the primary key for the table, so this is the value
+to supply for deletions.  This is not the same as the <code class="docutils literal notranslate"><span class="pre">source_suffix</span></code>, which is
+in-practice unique, but this is not guaranteed.  The crawler source table has
+no constraints on any columns other than the primary key.</p>
+<p>We see this as a feature in the case of deletions – you have to get the integer
+<code class="docutils literal notranslate"><span class="pre">crawler_source_id</span></code> in order to delete a source; it can’t be done with any other
+property/column of the table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source_id</strong> (<em>int</em>) – the <code class="docutils literal notranslate"><span class="pre">crawler_source_id</span></code> of the source to delete.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the source was deleted, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.CrawlerSourcePlugin.align_sources">
+<span class="sig-name descname"><span class="pre">align_sources</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sources</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.CrawlerSourcePlugin.align_sources" title="Link to this definition"></a></dt>
+<dd><p>Align the sources in the database with the provided list of sources.</p>
+<p>This uses an “upsert” (using the <code class="docutils literal notranslate"><span class="pre">insert_source()</span></code> method) to add sources
+to the database, one at a time. The list is assumed to be well-formatted with
+valid sources and all columns present.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">force</span></code> parameter is True, all sources in the database will be deleted
+before inserting the new ones. This is the default, as this preserves backward
+compatibility. If False, the new sources will be inserted/updated in the source
+table without purging the existing configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sources</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – A list of sources to insert into the database.</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – If True, delete all sources in the database before inserting the new ones.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the sources were inserted, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="nldi.api.plugins.FeaturePlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nldi.api.plugins.</span></span><span class="sig-name descname"><span class="pre">FeaturePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.FeaturePlugin" title="Link to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.FeaturePlugin.relative_url">
+<span class="sig-name descname"><span class="pre">relative_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srcname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.FeaturePlugin.relative_url" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.FeaturePlugin.crawler_source_lookup">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">crawler_source_lookup</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#nldi.api.plugins.CrawlerSourcePlugin" title="nldi.api.plugins.CrawlerSourcePlugin.CrawlerSourcePlugin"><span class="pre">CrawlerSourcePlugin</span></a></em><a class="headerlink" href="#nldi.api.plugins.FeaturePlugin.crawler_source_lookup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.FeaturePlugin.get_by_id">
+<span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_suffix</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.FeaturePlugin.get_by_id" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a feature by its unique id and source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.FeaturePlugin.get_all">
+<span class="sig-name descname"><span class="pre">get_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_suffix</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.FeaturePlugin.get_all" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.FeaturePlugin.lookup_navigation">
+<span class="sig-name descname"><span class="pre">lookup_navigation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nav</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">srcinfo</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.FeaturePlugin.lookup_navigation" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="nldi.api.plugins.FlowlinePlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nldi.api.plugins.</span></span><span class="sig-name descname"><span class="pre">FlowlinePlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.FlowlinePlugin" title="Link to this definition"></a></dt>
+<dd><p>NHD Flowline Plugin</p>
+<p>This plugin provides a mechanism to query the NHDPlus flowline data.
+<code class="docutils literal notranslate"><span class="pre">NHDFlowine</span></code> is a table in the NHDPlus database holding information about the surface
+drainage network. See <a class="reference external" href="https://www.usgs.gov/ngp-standards-and-specifications/national-hydrography-dataset-nhd-data-dictionary-feature-classes">https://www.usgs.gov/ngp-standards-and-specifications/national-hydrography-dataset-nhd-data-dictionary-feature-classes</a></p>
+<p>This plugin allows a flowline to be retrieved by its NHDPlus COMID. The returned
+data is a GeoJSON <code class="docutils literal notranslate"><span class="pre">Feature</span></code> representing the flowline geometry and minimal properties
+related to navigation up and down stream.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.FlowlinePlugin.relative_url">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">relative_url</span></span><a class="headerlink" href="#nldi.api.plugins.FlowlinePlugin.relative_url" title="Link to this definition"></a></dt>
+<dd><p>Get the relative URL used to construct properties of the returned GeoJSON.</p>
+<p>Some properties of the returned feature are URLs which indicate subsequent services
+that can be used to retrieve additional information about the feature (e.g. navigation).
+This property is used as the base of those URLs, as they are all relative to this
+plugin’s base URL.</p>
+<p>The relative url is dependent on the parent’s (i.e. the <code class="docutils literal notranslate"><span class="pre">API</span></code>) base URL.  For un-registered
+plugins, a default URL is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The relative URL for this plugin</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.FlowlinePlugin.get_by_id">
+<span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.FlowlinePlugin.get_by_id" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a flowline by its NHDPlus COMID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>identifier</strong> (<em>str</em>) – COMID of the flowline to retrieve</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – If the COMID is not found</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>GeoJSON feature representing the flowline</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.FlowlinePlugin.lookup_navigation">
+<span class="sig-name descname"><span class="pre">lookup_navigation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nav</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.FlowlinePlugin.lookup_navigation" title="Link to this definition"></a></dt>
+<dd><p>TODO:  Fuller description of navigation lookup</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nav</strong> (<em>str</em>) – _description_</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – _description_</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.FlowlinePlugin.trim_navigation">
+<span class="sig-name descname"><span class="pre">trim_navigation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nav</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nav_trim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.FlowlinePlugin.trim_navigation" title="Link to this definition"></a></dt>
+<dd><p>TODO: Fuller description of trimmed navigation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nav</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>nav_trim</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="nldi.api.plugins.CatchmentPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nldi.api.plugins.</span></span><span class="sig-name descname"><span class="pre">CatchmentPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.CatchmentPlugin" title="Link to this definition"></a></dt>
+<dd><p>NHD Catchment Plugin</p>
+<p>This plugin provides a mechanism to query the NHDPlus catchment data.  A catchment
+is the land surface area flowing directly into an NHDPlus feature.  This plugin
+provides methods to find catchments either by its COMID or by a point geometry.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.CatchmentPlugin.relative_url">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">relative_url</span></span><a class="headerlink" href="#nldi.api.plugins.CatchmentPlugin.relative_url" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.CatchmentPlugin.get_by_id">
+<span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.CatchmentPlugin.get_by_id" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a catchment by its featureid.</p>
+<p>The featureid is the unique COMID identifier for a catchment in the NHDPlus database.
+The returned data is a GeoJSON feature as a python dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – featureid of the catchment</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict of GeoJSON feature</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.CatchmentPlugin.get_by_coords">
+<span class="sig-name descname"><span class="pre">get_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">as_feature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.CatchmentPlugin.get_by_coords" title="Link to this definition"></a></dt>
+<dd><p>Perform a spatial query against the nhdplus/catchmentsp table.</p>
+<p>The spatial search uses a point geometry to find the catchment, which is passed in as
+the <code class="docutils literal notranslate"><span class="pre">coords</span></code> parameter. The point geometry is expected to be in the form of a WKT
+(in the form ‘POINT(longitude latitude)’)in NAD83 (EPSG:4269) coordinates.  We do
+not parse this string, but pass it directly to <code class="docutils literal notranslate"><span class="pre">geoalchemy</span></code>’s <code class="docutils literal notranslate"><span class="pre">WKTElement</span></code> object
+for interpretation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coords</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – WKT of point element</p></li>
+<li><p><strong>asGeoJSON</strong> – return data as GeoJSON feature (default: False)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict of 0..n GeoJSON features (if asGeoJSON is True) else the <code class="docutils literal notranslate"><span class="pre">featureid</span></code> of the matching catchment.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="nldi.api.plugins.BasinPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nldi.api.plugins.</span></span><span class="sig-name descname"><span class="pre">BasinPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.BasinPlugin" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="nldi.api.plugins.BasinPlugin.SPLIT_CATCHMENT_THRESHOLD">
+<span class="sig-name descname"><span class="pre">SPLIT_CATCHMENT_THRESHOLD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">200</span></em><a class="headerlink" href="#nldi.api.plugins.BasinPlugin.SPLIT_CATCHMENT_THRESHOLD" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.BasinPlugin.crawler_source_lookup">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">crawler_source_lookup</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#nldi.api.plugins.CrawlerSourcePlugin" title="nldi.api.plugins.CrawlerSourcePlugin.CrawlerSourcePlugin"><span class="pre">CrawlerSourcePlugin</span></a></em><a class="headerlink" href="#nldi.api.plugins.BasinPlugin.crawler_source_lookup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.BasinPlugin.feature_lookup">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">feature_lookup</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#nldi.api.plugins.FeaturePlugin" title="nldi.api.plugins.FeaturePlugin.FeaturePlugin"><span class="pre">FeaturePlugin</span></a></em><a class="headerlink" href="#nldi.api.plugins.BasinPlugin.feature_lookup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.BasinPlugin.flowline_lookup">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">flowline_lookup</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#nldi.api.plugins.FlowlinePlugin" title="nldi.api.plugins.FlowlinePlugin.FlowlinePlugin"><span class="pre">FlowlinePlugin</span></a></em><a class="headerlink" href="#nldi.api.plugins.BasinPlugin.flowline_lookup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.BasinPlugin.hydrolocation_lookup">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">hydrolocation_lookup</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#nldi.api.plugins.HydroLocationPlugin" title="nldi.api.plugins.HydroLocationPlugin.HydroLocationPlugin"><span class="pre">HydroLocationPlugin</span></a></em><a class="headerlink" href="#nldi.api.plugins.BasinPlugin.hydrolocation_lookup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.BasinPlugin.splitcatchment_lookup">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">splitcatchment_lookup</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#nldi.api.plugins.SplitCatchmentPlugin" title="nldi.api.plugins.SplitCatchmentPlugin.SplitCatchmentPlugin"><span class="pre">SplitCatchmentPlugin</span></a></em><a class="headerlink" href="#nldi.api.plugins.BasinPlugin.splitcatchment_lookup" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.BasinPlugin.get_by_id">
+<span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simplified</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.BasinPlugin.get_by_id" title="Link to this definition"></a></dt>
+<dd><p>Get a record from the database by its ID.</p>
+<p>This is a generic method for getting a record from the database by its ID.  In
+this base class, it is not implemented, but it is intended to be implemented in
+subclasses. Exactly what an “ID” is will depend on the plugin, as will the
+return type (Geojson, ORM object, etc.)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> (<em>str</em>) – A plugin-specific identifier for the record to find.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – This method is not implemented in the base class.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The record that matches the ID.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="nldi.api.plugins.MainstemPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nldi.api.plugins.</span></span><span class="sig-name descname"><span class="pre">MainstemPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.MainstemPlugin" title="Link to this definition"></a></dt>
+<dd><p>Provides a mechanism to query the NHDPlus data for mainstem features.</p>
+<p>A mainstem is a single flowline that represents the main channel of a river. This plugin
+allows a mainstem to be retrieved by its NHDPlus COMID. Unlike many other plugins, this
+lookup does not produce a GeoJSON feature, but rather a dictionary of properties related to
+the mainstem. Mainstem lookups to not include geometry data.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.MainstemPlugin.get_by_id">
+<span class="sig-name descname"><span class="pre">get_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.MainstemPlugin.get_by_id" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a mainstem by its NHDPlus COMID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>identifier</strong> (<em>str</em>) – COMID of the mainstem to retrieve</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – If the COMID is not found</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of properties representing the mainstem</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dict[str, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="nldi.api.plugins.HydroLocationPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nldi.api.plugins.</span></span><span class="sig-name descname"><span class="pre">HydroLocationPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.HydroLocationPlugin" title="Link to this definition"></a></dt>
+<dd><p>Provides a mechanism for sending requests to the HydroLocation PyGeoAPI service running elsewhere.</p>
+<p>The business logic of this plugin requires that it coordinate with other plugins.  Namely,
+<code class="docutils literal notranslate"><span class="pre">HydroLocationPlugin</span></code> needs to look up catchments in the NLDI database (using <code class="docutils literal notranslate"><span class="pre">CatchmentPlugin</span></code>).
+The preferred mechanism is to use the parent API’s plugin registry to get the catchment plugin
+instance.  If this plugin is not registered with the parent API, this pluging will create a new instance
+of the catchment plugin with a default name and database connection URL.</p>
+<p>The nature of this plugin is such that it does not make sense to query by ID. <code class="docutils literal notranslate"><span class="pre">get_by_id()</span></code> is
+not implemented in this plugin. The coordinate lookup in <code class="docutils literal notranslate"><span class="pre">get_by_coords()</span></code> is the primary
+method for this plugin.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.HydroLocationPlugin.catchment_lookup">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">catchment_lookup</span></span><a class="headerlink" href="#nldi.api.plugins.HydroLocationPlugin.catchment_lookup" title="Link to this definition"></a></dt>
+<dd><p>Return a catchment lookup plugin.</p>
+<p>This is a property that returns a CatchmentPlugin instance.  The logic of finding
+or creating an appropriate <code class="docutils literal notranslate"><span class="pre">CatchmentPlugin</span></code> is handled here.</p>
+<p>If the plugin is not registered, it will create a new instance with a default name and
+database connection URL.  If this plugin is propertly registered with the API, it will
+return the catchment plugin instance that is registered with the parent.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.HydroLocationPlugin.flowtrace_service_endpoint">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">flowtrace_service_endpoint</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#nldi.api.plugins.HydroLocationPlugin.flowtrace_service_endpoint" title="Link to this definition"></a></dt>
+<dd><p>Return the fully qualified URL for the flowtrace service endpoint.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.HydroLocationPlugin.get_by_coords">
+<span class="sig-name descname"><span class="pre">get_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.HydroLocationPlugin.get_by_coords" title="Link to this definition"></a></dt>
+<dd><p>Get a hydrolocation by coordinates.</p>
+<p>TODO: Full description of what a hydrolocation is and what it does.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="nldi.api.plugins.SplitCatchmentPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nldi.api.plugins.</span></span><span class="sig-name descname"><span class="pre">SplitCatchmentPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.SplitCatchmentPlugin" title="Link to this definition"></a></dt>
+<dd><p>Split Catchment Plugin</p>
+<p>This plugin provides a mechanism for proxying requests to the PyGeoAPI service offering a
+split catchment algorithm (running elsewhere).  This plugin is little more than a proxy
+to that service, and adds no additional business logic.</p>
+<p>The nature of this plugin is such that it does not make sense to query by ID. <code class="docutils literal notranslate"><span class="pre">get_by_id()</span></code>
+is not implemented in this plugin. The coordinate lookup in <code class="docutils literal notranslate"><span class="pre">get_by_coords()</span></code> is the primary
+method for this plugin.</p>
+<p>Note that the external split catchment service can take a long time to respond.  The timeout
+for this service is set to 2x the default timeout for PyGeoAPI service calls. This is to allow
+the split catchment algorithm to complete its work before the timeout is reached.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.SplitCatchmentPlugin.splitcatchment_service_endpoint">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">splitcatchment_service_endpoint</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#nldi.api.plugins.SplitCatchmentPlugin.splitcatchment_service_endpoint" title="Link to this definition"></a></dt>
+<dd><p>Return the url for the split catchment service endpoint.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nldi.api.plugins.SplitCatchmentPlugin.get_by_coords">
+<span class="sig-name descname"><span class="pre">get_by_coords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.SplitCatchmentPlugin.get_by_coords" title="Link to this definition"></a></dt>
+<dd><p>query split catchment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>coords</strong> (<em>str</em>) – WKT of point element</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>GeoJSON features</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<hr class="docutils" />
+<dl class="py class">
+<dt class="sig sig-object py" id="nldi.api.plugins.PyGeoAPIPlugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nldi.api.plugins.</span></span><span class="sig-name descname"><span class="pre">PyGeoAPIPlugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nldi.api.plugins.PyGeoAPIPlugin" title="Link to this definition"></a></dt>
+<dd><p>Provides a mechanism for proxying requests to a PyGeoAPI instance running elsewhere.</p>
+<p>This is a base class for other plugins, notably the <code class="docutils literal notranslate"><span class="pre">HydroLocationPlugin</span></code> and
+<code class="docutils literal notranslate"><span class="pre">SplitCatchmentPlugin</span></code>.  This class provides a single source for common utility functions
+and constants used by those subclasses.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nldi.api.plugins.PyGeoAPIPlugin.DEFAULT_PYGEOAPI_URL">
+<span class="sig-name descname"><span class="pre">DEFAULT_PYGEOAPI_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://labs-beta.waterdata.usgs.gov/api/nldi/pygeoapi'</span></em><a class="headerlink" href="#nldi.api.plugins.PyGeoAPIPlugin.DEFAULT_PYGEOAPI_URL" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nldi.api.plugins.PyGeoAPIPlugin.HTTP_TIMEOUT">
+<span class="sig-name descname"><span class="pre">HTTP_TIMEOUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#nldi.api.plugins.PyGeoAPIPlugin.HTTP_TIMEOUT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nldi.api.plugins.PyGeoAPIPlugin.DEFAULT_PROPS">
+<span class="sig-name descname"><span class="pre">DEFAULT_PROPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'comid':</span> <span class="pre">'',</span> <span class="pre">'identifier':</span> <span class="pre">'',</span> <span class="pre">'measure':</span> <span class="pre">'',</span> <span class="pre">'name':</span> <span class="pre">'',</span> <span class="pre">'navigation':</span> <span class="pre">'',</span> <span class="pre">'reachcode':</span> <span class="pre">'',</span> <span class="pre">'source':</span> <span class="pre">'provided',</span> <span class="pre">'sourceName':</span> <span class="pre">'Provided</span> <span class="pre">via</span> <span class="pre">API</span> <span class="pre">call',</span> <span class="pre">'type':</span> <span class="pre">'point',</span> <span class="pre">'uri':</span> <span class="pre">''}</span></em><a class="headerlink" href="#nldi.api.plugins.PyGeoAPIPlugin.DEFAULT_PROPS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nldi.api.plugins.PyGeoAPIPlugin.pygeoapi_url">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pygeoapi_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#nldi.api.plugins.PyGeoAPIPlugin.pygeoapi_url" title="Link to this definition"></a></dt>
+<dd><p>Get the URL of the PyGeoAPI instance to which requests will be sent.</p>
+<p>The parent API is configurable, and that configuration includes a custom URL
+for this value.  If left unconfigured, or if this plugin is running in
+“unregistered” state (e.g. for testing purposes), this string will default
+to a known URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The URL of the PyGeoAPI service.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="API.html" class="btn btn-neutral float-left" title="NLDI API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Glossary.html" class="btn btn-neutral float-right" title="Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Internet of Water.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
